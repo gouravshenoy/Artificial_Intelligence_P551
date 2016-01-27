@@ -9,6 +9,7 @@ class Graph_Node:
     """
     Class represents node in a graph
     """
+
     def __init__(self, name, path, cost, visited):
         self.name = name
         self.path = path
@@ -16,10 +17,11 @@ class Graph_Node:
         self.visited = visited
 
 
-class Path_Finder:
+class Graph_Traversal:
     """
     Class performing elementry traversal
     """
+
     def __init__(self, ip_file):
         self.ip_file = ip_file
         self.graph_dict = self.create_graph(self.ip_file)
@@ -209,6 +211,7 @@ class Path_Finder:
 
         return None
 
+
 if __name__ == '__main__':
     # define the arg parser
     parser = argparse.ArgumentParser()
@@ -226,7 +229,7 @@ if __name__ == '__main__':
     algorithm = raw_input("Enter the search technique (BFS/DFS/Iterative Deepening): ")
 
     # call the class method
-    path_finder = Path_Finder(ip_file)
-    path_finder.find_path(origin=origin.lower(),
-                          destination=destination.lower(),
-                          algorithm=algorithm.lower())
+    graph_traversal = Graph_Traversal(ip_file)
+    graph_traversal.find_path(origin=origin.lower(),
+                              destination=destination.lower(),
+                              algorithm=algorithm.lower())
