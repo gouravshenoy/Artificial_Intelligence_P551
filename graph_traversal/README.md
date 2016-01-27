@@ -33,12 +33,13 @@ Program help menu can be found using the [-h] or [--help] option:
 
 Program run using data/romania.txt file as input for BFS, DFS:
 
+    python graph_traversal.py --file=data/romania.txt
     Enter source city: arad
     Enter destination city: bucharest
     Enter the search technique (BFS/DFS/Iterative Deepening): dfs
     Reached destination, Path = arad,sibiu,rimnicu,piteshi,bucharest, Cost = 418
 
-
+    python graph_traversal.py --file=data/romania.txt
     Enter source city: arad
     Enter destination city: bucharest
     Enter the search technique (BFS/DFS/Iterative Deepening): bfs
