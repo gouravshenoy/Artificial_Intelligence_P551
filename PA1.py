@@ -22,6 +22,7 @@ class Path_Finder:
     """
     def __init__(self, ip_file):
         self.ip_file = ip_file
+        self.graph_dict = self.create_graph(self.ip_file)
         print('Input File: ' + ip_file)
 
     @classmethod
@@ -69,7 +70,7 @@ class Path_Finder:
         :return:
         """
 
-        graph_dict = self.create_graph(self.ip_file)
+        graph_dict = self.graph_dict
 
         try:
             # check if source & destination cities exist
@@ -79,6 +80,10 @@ class Path_Finder:
 
             if algorithm == 'bfs':
                 self.bfs_search(origin=origin,
+                                destination=destination,
+                                graph_dict=graph_dict)
+            elif algorithm == 'dfs':
+                self.dfs_search(origin=origin,
                                 destination=destination,
                                 graph_dict=graph_dict)
             else:
@@ -113,6 +118,7 @@ class Path_Finder:
 
         # perform till queue is empty
         while queue.empty() is False:
+            # get next node
             current_node = queue.get()
             city_name = current_node.name
             current_path = current_node.path
@@ -145,6 +151,63 @@ class Path_Finder:
 
         return None
 
+    @classmethod
+    def dfs_search(self, origin, destination, graph_dict):
+        """
+        Method performs Depth First Search (BFS)
+        using queues
+        :param origin:
+        :param destination:
+        :return:
+        """
+
+        # Basic data structures required for BFS
+        stack = []
+        visited_list = []
+
+        # create a node
+        node = Graph_Node(name=origin,
+                          path=origin,
+                          cost=0,
+                          visited=True)
+
+        # push city node
+        stack.append(node)
+
+        # perform till stack is empty
+        while stack is not None:
+            # get next node
+            current_node = stack.pop()
+            city_name = current_node.name
+            current_path = current_node.path
+            current_cost = current_node.cost
+
+            # add to visited list
+            visited_list.append(city_name)
+
+            # check if goal state
+            if city_name == destination:
+                print("Reached destination, Path = " + current_path + ', Cost = ' + str(current_cost))
+                return
+
+            # get neighbouring cities
+            neighbors = graph_dict[city_name]
+            for city, cost in neighbors.iteritems():
+                # check if city is already visited
+                if city in visited_list:
+                    continue
+
+                # if not, create a new node & enqueue
+                node = Graph_Node(name=city,
+                                  path=current_path + ',' + city,
+                                  cost=(current_cost + cost),
+                                  visited=False)
+                # push node
+                stack.append(node)
+                # end-for-loop
+        # end-while-loop
+
+        return None
 
 if __name__ == '__main__':
     # define the arg parser
