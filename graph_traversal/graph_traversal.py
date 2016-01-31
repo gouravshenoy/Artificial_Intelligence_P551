@@ -25,7 +25,7 @@ class Graph_Traversal:
     def __init__(self, ip_file):
         self.ip_file = ip_file
         self.graph_dict = self.create_graph(self.ip_file)
-        print('Input File: ' + ip_file)
+        # print('Input File: ' + ip_file)
 
     @classmethod
     def create_graph(self, ip_file):
@@ -58,7 +58,7 @@ class Graph_Traversal:
                 except Exception as ex:
                     graph_dict[city_2] = {city_1: cost}
 
-            print(graph_dict)
+            # print(graph_dict)
         # file closes
         return graph_dict
 
