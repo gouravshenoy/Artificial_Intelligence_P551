@@ -146,7 +146,7 @@ class Graph_Traversal:
 
                 # if not, create a new node & enqueue
                 node = Graph_Node(name=city,
-                                  path=current_path + ',' + city,
+                                  path=current_path + ' -> ' + city,
                                   cost=(current_cost + cost))
                 # enque node
                 queue.put(node)
@@ -202,7 +202,7 @@ class Graph_Traversal:
 
                 # if not, create a new node & enqueue
                 node = Graph_Node(name=city,
-                                  path=current_path + ',' + city,
+                                  path=current_path + ' -> ' + city,
                                   cost=(current_cost + cost))
                 # push node
                 stack.append(node)
@@ -248,14 +248,14 @@ class Graph_Traversal:
                 current_cost = current_node.cost
 
                 # calculate node level
-                current_level = len(current_path.rstrip().split(','))
+                current_level = len(current_path.rstrip().split(' -> '))
 
                 # add to visited list
                 visited_list.append(city_name)
 
                 # check if goal state
                 if city_name == destination:
-                    print("Reached destination, Path = [" + current_path + '], Cost = ' + str(current_cost) + ', Iteration Level = ' + str(iteration_level))
+                    print("Reached destination, Path = [" + current_path + '], Cost = ' + str(current_cost) + ', Iteration Level = ' + str(current_level))
                     return
 
                 # check iteration level
@@ -272,9 +272,9 @@ class Graph_Traversal:
 
                     # if not, create a new node & enqueue
                     node = Graph_Node(name=city,
-                                      path=current_path + ',' + city,
+                                      path=current_path + ' -> ' + city,
                                       cost=(current_cost + cost),
-                                      level=current_level + 1)
+                                      level=(current_level + 1))
                     # enque node
                     queue.put(node)
                     # end-for-loop
@@ -286,11 +286,11 @@ class Graph_Traversal:
 if __name__ == '__main__':
     # define the arg parser
     parser = argparse.ArgumentParser()
-    parser.add_argument('--file', help='Input file specifying paths')
+    parser.add_argument('FILE', help='Input file specifying graph (map) paths')
     args = parser.parse_args()
 
     # read the commandline argument
-    ip_file = args.file
+    ip_file = args.FILE
     ip_file = os.path.realpath(
         os.path.expanduser(ip_file))
 
@@ -309,7 +309,7 @@ if __name__ == '__main__':
 
         print("************** COMPLETE ****************")
         # check if user wants to continue
-        repeat = raw_input("Do you wish to re-run the program? (Yes/No): ")
+        repeat = raw_input("\nDo you wish to re-run the program? (Yes/No): ")
 
         # break if user wishes to discontinue
         if (repeat.rstrip().lower() == 'no') or \
